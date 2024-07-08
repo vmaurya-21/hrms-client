@@ -1,16 +1,18 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import { Navbar } from "./components/Navbar";
+// pages
 import { Home } from "./pages/Home/index";
 import ProtectedPage from "./pages/Protected/index.jsx";
 import { Login } from "./pages/LoginSystem/login";
 import { Register } from "./pages/LoginSystem/register";
 import { Error } from "./pages/Error/index";
 
+//components
+import { Navbar } from "./components/Navbar";
 import { RequireNotAuth, RequireAuth } from "./components/RequireAuth";
+
+//contexts
 import { AuthProvider } from "./contexts/AuthProvider.jsx";
-
-
 
 function App() {
   return (
@@ -18,8 +20,6 @@ function App() {
       <Router>
         <Navbar />
         <Routes>
-          
-
           <Route path="/" element={<Home />} />
 
           <Route element={<RequireNotAuth />}>
@@ -32,8 +32,6 @@ function App() {
           </Route>
 
           <Route path="*" element={<Error code="404" />} />
-
-          
         </Routes>
       </Router>
     </AuthProvider>

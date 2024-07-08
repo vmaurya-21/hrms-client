@@ -3,11 +3,14 @@ import useAuth from "../../hooks/auth/useAuth";
 import useLogout from "../../hooks/auth/useLogout";
 import { useState } from "react";
 
+// Component for navigation bar with dynamic content based on authentication state
 export const Navbar = () => {
-  const { auth } = useAuth();
-  const logout = useLogout();
+  const { auth } = useAuth(); // Accessing authentication state
+  const logout = useLogout(); // Logout function from custom hook
 
-  const [headerClass, setHeaderClass] = useState("");
+  const [headerClass, setHeaderClass] = useState(""); // State for managing header class for mobile menu toggle
+
+  // Function to toggle mobile menu class
   const menuToggle = () => {
     headerClass === "open" ? setHeaderClass("") : setHeaderClass("open");
   };
@@ -16,17 +19,21 @@ export const Navbar = () => {
     <header
       className={`bg-white shadow-md p-4 flex justify-between items-center ${headerClass === "open" ? "bg-gray-100" : ""}`}
     >
+      {/* Mobile menu toggle button */}
       <div className="cursor-pointer md:hidden" onClick={menuToggle}>
         <div className="w-6 h-1 bg-gray-800 mb-1"></div>
         <div className="w-6 h-1 bg-gray-800 mb-1"></div>
         <div className="w-6 h-1 bg-gray-800"></div>
       </div>
 
+      {/* Main navigation links */}
       <ul className="hidden md:flex md:items-center md:space-x-6">
+        {/* Logo */}
         <li className="text-xl font-bold text-gray-800">
           <Link to="/">Logo</Link>
         </li>
 
+        {/* Links */}
         <div className="flex space-x-6">
           <li>
             <Link
@@ -58,7 +65,9 @@ export const Navbar = () => {
         </div>
       </ul>
 
+      {/* Conditional rendering based on authentication state */}
       {auth?.accessToken ? (
+        // If authenticated, show logout button
         <button
           className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
           onClick={logout}
@@ -66,6 +75,7 @@ export const Navbar = () => {
           Log out
         </button>
       ) : (
+        // If not authenticated, show login link
         <Link
           className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
           to="/login"
@@ -74,6 +84,7 @@ export const Navbar = () => {
         </Link>
       )}
 
+      {/* Mobile menu dropdown */}
       <div
         className={`absolute top-16 left-0 w-full bg-white shadow-md md:hidden ${headerClass === "open" ? "block" : "hidden"}`}
       >

@@ -1,3 +1,4 @@
+// Component for rendering a protected page content
 const ProtectedPage = () => {
   return (
     <div>
