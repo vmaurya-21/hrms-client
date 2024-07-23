@@ -3,7 +3,17 @@ import useAuth from "../../hooks/auth/useAuth";
 import useLogout from "../../hooks/auth/useLogout";
 import { useState } from "react";
 
-// Component for navigation bar with dynamic content based on authentication state
+/**
+ * Component for navigation bar with dynamic content based on authentication state.
+ *
+ * @component
+ *
+ * @example
+ * // Example usage:
+ * <Navbar />
+ *
+ * @returns {JSX.Element} The rendered navigation bar.
+ */
 export const Navbar = () => {
   const { auth } = useAuth(); // Accessing authentication state
   const logout = useLogout(); // Logout function from custom hook
@@ -20,7 +30,11 @@ export const Navbar = () => {
       className={`bg-white shadow-md p-4 flex justify-between items-center ${headerClass === "open" ? "bg-gray-100" : ""}`}
     >
       {/* Mobile menu toggle button */}
-      <div className="cursor-pointer md:hidden" onClick={menuToggle}>
+      <div
+        className="cursor-pointer md:hidden"
+        onClick={menuToggle}
+        data-testid="menu-btn"
+      >
         <div className="w-6 h-1 bg-gray-800 mb-1"></div>
         <div className="w-6 h-1 bg-gray-800 mb-1"></div>
         <div className="w-6 h-1 bg-gray-800"></div>
@@ -40,6 +54,7 @@ export const Navbar = () => {
               to="/"
               className="text-gray-600 hover:text-gray-800"
               onClick={menuToggle}
+              data-testid="home-link"
             >
               Home
             </Link>
@@ -49,6 +64,7 @@ export const Navbar = () => {
               to="/protected"
               className="text-gray-600 hover:text-gray-800"
               onClick={menuToggle}
+              data-testid="protected-link"
             >
               Protected
             </Link>
@@ -58,6 +74,7 @@ export const Navbar = () => {
               to="/admin"
               className="text-gray-600 hover:text-gray-800"
               onClick={menuToggle}
+              data-testid="admin-link"
             >
               Admin
             </Link>
@@ -94,6 +111,7 @@ export const Navbar = () => {
               to="/"
               className="py-2 text-gray-600 hover:text-gray-800"
               onClick={menuToggle}
+              data-testid="home-link-menu"
             >
               Home
             </Link>
@@ -103,6 +121,7 @@ export const Navbar = () => {
               to="/protected"
               className="py-2 text-gray-600 hover:text-gray-800"
               onClick={menuToggle}
+              data-testid="protected-link-menu"
             >
               Protected
             </Link>
@@ -112,6 +131,7 @@ export const Navbar = () => {
               to="/admin"
               className="py-2 text-gray-600 hover:text-gray-800"
               onClick={menuToggle}
+              data-testid="admin-link-menu"
             >
               Admin
             </Link>

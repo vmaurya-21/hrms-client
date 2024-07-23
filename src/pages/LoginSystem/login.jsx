@@ -2,9 +2,24 @@ import { useRef, useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "../../lib/axios";
 import useAuth from "../../hooks/auth/useAuth";
+import { endpoints } from "../../constants/urls";
 
+/**
+ * Login component for user authentication.
+ *
+ * This component provides a user interface for logging in. It includes fields for username/email and password,
+ * handles form submission, and displays error messages if login fails. It also supports persistent login using a checkbox.
+ * On successful login, it redirects the user to the previous page or home.
+ *
+ * @component
+ * @example
+ * return (
+ *   <Login />
+ * )
+ */
 export const Login = () => {
   const { persist, setAuth, setPersist } = useAuth();
+  const { LOGIN_API } = endpoints;
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -17,6 +32,12 @@ export const Login = () => {
   const [password, setPassword] = useState("");
   const [errMsg, setErrMsg] = useState("");
 
+  // const varCheck = {
+  //   accessToken: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjE3MjE3MTIwMzUsImV4cCI6MTc1MzI0ODA2NywiYXVkIjoid3d3LmV4YW1wbGUuY29tIiwic3ViIjoianJvY2tldEBleGFtcGxlLmNvbSIsIkdpdmVuTmFtZSI6IkpvaG5ueSIsIlN1cm5hbWUiOiJSb2NrZXQiLCJSb2xlIjoiYWRtaW4ifQ.vViz-DxP7t2YzRY_SPmrA1EWKhmJiLmDkGBRaD121rU",
+  //   username: "Vagish",
+  //   email: "abc@gmail.com",
+  // }
+
   // Focus username/email input on initial render
   useEffect(() => {
     usernameOrEmailRef.current.focus();
@@ -27,14 +48,22 @@ export const Login = () => {
     setErrMsg("");
   }, [usernameOrEmail, password]);
 
-  // Handle form submission
+  /**
+   * Handles the form submission event.
+   *
+   * This function prevents the default form submission, sends the login request to the server,
+   * and handles success and error responses. On successful login, it updates authentication context and redirects the user.
+   *
+   * @param {Object} e - The event object.
+   * @returns {Promise<void>}
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       // Send login request to server
       const response = await axios.post(
-        "/user/login",
+        LOGIN_API,
         JSON.stringify({ usernameOrEmail, password }),
         {
           headers: { "Content-Type": "application/json" },
@@ -42,23 +71,26 @@ export const Login = () => {
         }
       );
 
-      // Handle invalid response from server
-      if (!response.data) {
-        throw new Error("Invalid response from server");
-      }
+    // Handle invalid response from server
+    if (!response.data) {
+      throw new Error("Invalid response from server");
+    }
 
-      // Destructure response data
-      const { accessToken, username, email } = response.data;
 
-      // Update authentication context with user information
-      setAuth({ username, email, accessToken });
+    // Destructure response data
+    const { accessToken, username, email } = response.data;
+    // const { accessToken, username, email } = varCheck;
+      
 
-      // Clear username/email and password fields
-      setUsernameOrEmail("");
-      setPassword("");
+    // Update authentication context with user information
+    setAuth({ username, email, accessToken });
 
-      // Redirect user to previous page or home ("/") after successful login
-      navigate(redirection, { replace: true });
+    // Clear username/email and password fields
+    setUsernameOrEmail("");
+    setPassword("");
+
+    // Redirect user to previous page or home ("/") after successful login
+     navigate(redirection, { replace: true });
     } catch (err) {
       // Handle errors
       if (!err?.response) {
@@ -69,17 +101,23 @@ export const Login = () => {
         setErrMsg("Login failed."); // Other login failure
       }
 
-      // Clear error message after 4 seconds
-      setTimeout(() => {
-        setErrMsg("");
-      }, 4000);
+    // Clear error message after 4 seconds
+    setTimeout(() => {
+      setErrMsg("");
+    }, 4000);
 
-      // Focus on error message
-      errRef.current.focus();
-    }
+    // Focus on error message
+    errRef.current.focus();
+   }
   };
 
-  // Toggle persistent login checkbox
+  /**
+   * Toggles the persistent login checkbox state.
+   *
+   * This function updates the persistent login state, which determines whether the user's login should be remembered.
+   *
+   * @returns {void}
+   */
   const togglePersist = () => {
     setPersist(!persist);
   };

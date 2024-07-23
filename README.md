@@ -93,3 +93,12 @@ If you want to remove the authentication functionalities from this project, foll
 
 
 ## Contributors
+Want to reach out to the folks who have tirelessly worked on this project, please reach out to the following folks.
+
+**Project Manager/s:**
+- [Manager-Name1](GitHub profile URL of Manager1)
+- [Manager-Name2](GitHub profile URL of Manager2)
+
+**Developer/s:**
+- [Developer-1](GitHub profile URL of developer-1)
+- [Developer-2](GitHub profile URL of developer-2)

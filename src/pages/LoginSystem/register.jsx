@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import axios from "../../lib/axios";
+import { endpoints } from "../../constants/urls";
 
 // Regular expressions for validation
 const userRegex = /^[A-z][A-z0-9-_]{3,18}$/; // Username validation
@@ -8,9 +9,24 @@ const emailRegex =
 const passwordRegex =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!*@#$%]).{8,24}$/; // Password validation
 
+/**
+ * Register component for user registration.
+ *
+ * This component provides a user interface for creating a new account. It includes fields for username,
+ * email, password, and password confirmation. It validates the inputs using regular expressions and provides
+ * feedback on input validity. On successful registration, it displays a success message.
+ * Handles form submission and displays error messages if the registration fails.
+ *
+ * @component
+ * @example
+ * return (
+ *   <Register />
+ * )
+ */
 export const Register = () => {
   const usernameRef = useRef(); // Ref for username input field
   const errRef = useRef(); // Ref for error message element
+  const { REGISTER_API } = endpoints;
 
   // State variables for managing form inputs and validation
   const [username, setUsername] = useState("");
@@ -47,7 +63,7 @@ export const Register = () => {
     setValidEmail(emailRegex.test(email));
   }, [email]);
 
-  // Validate password format whenever it changes
+  // Validate password format and match password whenever they change
   useEffect(() => {
     setValidPassword(passwordRegex.test(password));
     setValidMatch(password === matchPassword);
@@ -58,7 +74,17 @@ export const Register = () => {
     setErrMsg("");
   }, [username, password, matchPassword]);
 
-  // Handle form submission
+  /**
+   * Handles the form submission event.
+   *
+   * This function prevents the default form submission behavior, validates the form inputs, sends a registration
+   * request to the server, and handles success and error responses. On successful registration, it updates
+   * state to reflect success and clears the form inputs. Handles various error scenarios including server errors
+   * and conflict errors.
+   *
+   * @param {Object} e - The event object from the form submission.
+   * @returns {Promise<void>}
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -70,7 +96,7 @@ export const Register = () => {
     try {
       // Send registration request to server
       await axios.post(
-        "/user/register",
+        REGISTER_API,
         JSON.stringify({ username, email, password }),
         {
           headers: { "Content-Type": "application/json" },
@@ -171,6 +197,7 @@ export const Register = () => {
             {/* Email validation message */}
             <p
               id="emailnote"
+              data-testid="emailnote"
               className={`${emailFocus && email && !validEmail ? "text-red-600 text-sm mt-2" : "hidden"}`}
             >
               Must be a valid email.

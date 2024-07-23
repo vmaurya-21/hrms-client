@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import useAuth from "./useAuth";
 import axios from "../../lib/axios";
+import { endpoints } from "../../constants/urls";
 
 /**
  * Custom hook to handle logout functionality.
@@ -9,11 +10,12 @@ import axios from "../../lib/axios";
  */
 const useLogout = (location) => {
   const { setAuth } = useAuth();
+  const { LOGOUT_API } = endpoints;
   const navigate = useNavigate();
 
   return async () => {
     // Sending a request to the server to logout the user
-    await axios("/user/logout", {}).catch(() => {});
+    // await axios(LOGOUT_API, {}).catch(() => {});
 
     // Clearing authentication state in the application
     setAuth({});

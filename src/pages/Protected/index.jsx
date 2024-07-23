@@ -1,4 +1,18 @@
-// Component for rendering a protected page content
+import { useEffect } from "react";
+import { axiosPrivate } from "../../lib/axios";
+
+/**
+ * ProtectedPage Component
+ *
+ * This component renders content that requires user authentication and authorization.
+ *
+ * @component
+ * @example
+ * // Example usage:
+ * <ProtectedPage />
+ *
+ * @returns {JSX.Element} The rendered protected page content.
+ */
 const ProtectedPage = () => {
   return (
     <div>

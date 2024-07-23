@@ -3,7 +3,19 @@ import { useState, useEffect } from "react";
 import useRefreshToken from "../hooks/auth/useRefreshToken";
 import useAuth from "../hooks/auth/useAuth";
 
-// Component to handle persistent login state
+/**
+ * Component to handle persistent login state.
+ *
+ * @component
+ *
+ * @example
+ * // Example usage:
+ * <PersistLogin>
+ *   <ProtectedComponent />
+ * </PersistLogin>
+ *
+ * @returns {JSX.Element} The rendered component based on authentication persistence and loading state.
+ */
 const PersistLogin = () => {
   const [isLoading, setIsLoading] = useState(true);
   const refresh = useRefreshToken(); // Refresh token function from custom hook

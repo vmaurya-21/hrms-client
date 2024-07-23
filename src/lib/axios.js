@@ -4,8 +4,14 @@ import axios from "axios";
 const baseURL = import.meta.env.VITE_API_URL;
 
 /**
- * Default axios instance configured with the base URL.
+ * Default Axios instance configured with the base URL.
  * This instance can be used for public API calls that don't require authentication.
+ *
+ * @constant {AxiosInstance}
+ *
+ * @example
+ * // Example usage:
+ * axiosInstance.get('/public-endpoint');
  */
 export default axios.create({ baseURL });
 
@@ -14,7 +20,15 @@ export default axios.create({ baseURL });
  * This instance is configured with:
  * - Base URL from environment variables
  * - JSON Content-Type header for request bodies
- * - withCredentials flag to include cookies in requests (useful for authentication)
+ * - `withCredentials` flag to include cookies in requests (useful for authentication)
+ *
+ * This instance is intended for use with API endpoints that require authentication.
+ *
+ * @constant {AxiosInstance}
+ *
+ * @example
+ * // Example usage:
+ * axiosPrivate.get('/protected-endpoint');
  */
 export const axiosPrivate = axios.create({
   baseURL,
