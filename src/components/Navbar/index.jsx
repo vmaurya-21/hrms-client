@@ -4,17 +4,21 @@ import useLogout from "../../hooks/auth/useLogout";
 import { useState } from "react";
 
 /**
+ * @namespace components
+ */
+
+/**
  * Component for navigation bar with dynamic content based on authentication state.
  *
  * @component
- *
+ * @memberof components
  * @example
  * // Example usage:
  * <Navbar />
  *
  * @returns {JSX.Element} The rendered navigation bar.
  */
-export const Navbar = () => {
+const Navbar = () => {
   const { auth } = useAuth(); // Accessing authentication state
   const logout = useLogout(); // Logout function from custom hook
 
@@ -141,3 +145,5 @@ export const Navbar = () => {
     </header>
   );
 };
+
+export default Navbar;

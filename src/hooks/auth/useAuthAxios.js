@@ -9,6 +9,7 @@ import useAuth from "./useAuth";
  * This hook configures the Axios instance to include the access token in request headers
  * and handle token refresh when a 401 Unauthorized error occurs.
  *
+ * @memberof hooks
  * @returns {AxiosInstance} The configured Axios instance for private routes.
  *
  * @example

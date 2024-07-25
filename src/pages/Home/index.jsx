@@ -1,5 +1,3 @@
-import ErrorTest from "../Error/errorTest";
-
 /**
  * @namespace pages
  */
@@ -17,11 +15,12 @@ import ErrorTest from "../Error/errorTest";
  *
  * @returns {JSX.Element} The rendered home page component
  */
-export const Home = () => {
+const Home = () => {
   return (
     <>
       <div className="text-center text-2xl">Hello world..</div>;
-      {/* <ErrorTest/> */}
     </>
   )
 };
+
+export default Home;

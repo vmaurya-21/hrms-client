@@ -3,7 +3,7 @@ import { logErrorToService } from "../../services/errorLoggingService";
 
 /**
  * Custom hook for handling errors and logging them to an external service.
- *
+ *@memberof hooks
  * @hook
  * @example
  * // Example usage within a React component:

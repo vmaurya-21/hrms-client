@@ -3,9 +3,18 @@ import { createContext, useState, useEffect } from "react";
 const AuthContext = createContext({});
 
 /**
+ * @namespace contexts
+ */
+
+/**
  * Provider component for managing authentication state and context.
  *
+ * This component provides a context for authentication-related state and functions,
+ * allowing child components to access and update authentication data.
+ *
+ * @memberof contexts
  * @component
+ *
  * @param {Object} props - The props for the component.
  * @param {React.ReactNode} props.children - The children components that will have access to the authentication context.
  *
@@ -38,6 +47,7 @@ export const AuthProvider = ({ children }) => {
 
   /**
    * Function to update authentication data in authState.
+   *
    * @param {Object} auth - The authentication data.
    */
   const setAuth = (auth) => {
@@ -46,6 +56,7 @@ export const AuthProvider = ({ children }) => {
 
   /**
    * Function to update persistence setting in authState.
+   *
    * @param {boolean} persist - The persistence setting.
    */
   const setPersist = (persist) => {

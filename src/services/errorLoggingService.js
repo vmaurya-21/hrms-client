@@ -2,8 +2,11 @@ import axios from "../lib/axios";
 import { endpoints } from "../constants/urls";
 
 /**
+ * @namespace services
+ */
+/**
  * Logs an error to an external service.
- *
+ * @memberof services
  * @async
  * @function
  * @param {Error} error - The error object to be logged.

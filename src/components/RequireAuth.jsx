@@ -1,6 +1,6 @@
 import { useLocation, Navigate, Outlet } from "react-router-dom";
 import useAuth from "../hooks/auth/useAuth";
-import { Error } from "../pages/Error/index";
+import  Error  from "../pages/Error/index";
 import useLogout from "../hooks/auth/useLogout";
 import { jwtDecode } from "jwt-decode";
 import { useEffect , useState } from "react";
@@ -25,7 +25,7 @@ export const RequireAuth = ({ allowedRoles }) => {
   const [roles, setRoles] = useState("");
   const location = useLocation();
   const logout = useLogout(location);
-
+  //console.log(location);
   useEffect(() => {
     if (auth?.accessToken) {
       try {
@@ -52,7 +52,6 @@ export const RequireAuth = ({ allowedRoles }) => {
  * Component to ensure user is not authenticated.
  *
  * @component
- *
  * @example
  * // Example usage:
  * <RequireNotAuth>

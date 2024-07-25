@@ -4,9 +4,14 @@ import axios from "axios";
 const baseURL = import.meta.env.VITE_API_URL;
 
 /**
+ * @namespace lib
+ * 
+ */
+
+/**
  * Default Axios instance configured with the base URL.
  * This instance can be used for public API calls that don't require authentication.
- *
+ *@memberof lib
  * @constant {AxiosInstance}
  *
  * @example
@@ -23,7 +28,7 @@ export default axios.create({ baseURL });
  * - `withCredentials` flag to include cookies in requests (useful for authentication)
  *
  * This instance is intended for use with API endpoints that require authentication.
- *
+ *@memberof lib
  * @constant {AxiosInstance}
  *
  * @example

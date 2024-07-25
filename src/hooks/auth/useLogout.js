@@ -5,6 +5,7 @@ import { endpoints } from "../../constants/urls";
 
 /**
  * Custom hook to handle logout functionality.
+ * @memberof hooks
  * @param {Object} location - Optional location object from React Router indicating where the user came from.
  * @returns {Function} - Logout function to be called when the user initiates logout.
  */

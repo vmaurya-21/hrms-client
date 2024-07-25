@@ -2,11 +2,16 @@ import { useContext } from "react";
 import AuthContext from "../../contexts/AuthProvider";
 
 /**
+ * @namespace hooks
+ */
+
+/**
  * Custom hook to access authentication context.
  *
  * This hook provides a way to access the current authentication context value.
  * It uses the `useContext` hook to get the value from `AuthContext`.
  *
+ * @memberof hooks
  * @returns {Object} The current value of the AuthContext, including authentication state and functions to update it.
  *
  * @example

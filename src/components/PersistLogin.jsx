@@ -7,7 +7,7 @@ import useAuth from "../hooks/auth/useAuth";
  * Component to handle persistent login state.
  *
  * @component
- *
+ *@memberof components
  * @example
  * // Example usage:
  * <PersistLogin>

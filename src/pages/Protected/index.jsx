@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-import { axiosPrivate } from "../../lib/axios";
 
 /**
  * ProtectedPage Component
@@ -7,6 +5,7 @@ import { axiosPrivate } from "../../lib/axios";
  * This component renders content that requires user authentication and authorization.
  *
  * @component
+ * @memberof pages
  * @example
  * // Example usage:
  * <ProtectedPage />

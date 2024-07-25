@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
  * Error component to display different error messages and navigation options.
  *
  * @component
+ * @memberof pages
  * @param {Object} props - Props for error handling.
  * @param {string} props.code - Error code ("404" or "403").
  *
@@ -14,7 +15,7 @@ import { useNavigate } from "react-router-dom";
  *
  * @returns {JSX.Element} The rendered error page component.
  */
-export const Error = (props) => {
+const Error = (props) => {
   const navigate = useNavigate(); // Hook from react-router-dom for navigation
   const goBack = () => navigate(-1); // Function to navigate back in history
 
@@ -62,3 +63,5 @@ export const Error = (props) => {
     </div>
   );
 };
+
+export default Error;

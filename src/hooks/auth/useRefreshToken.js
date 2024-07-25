@@ -4,6 +4,7 @@ import { endpoints } from "../../constants/urls";
 
 /**
  * Custom hook to handle token refresh functionality.
+ * @memberof hooks
  * @returns {Function} - Function to refresh the access token.
  */
 const useRefreshToken = () => {

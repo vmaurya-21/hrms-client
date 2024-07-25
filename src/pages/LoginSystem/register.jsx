@@ -18,12 +18,13 @@ const passwordRegex =
  * Handles form submission and displays error messages if the registration fails.
  *
  * @component
+ * @memberof pages
  * @example
  * return (
  *   <Register />
  * )
  */
-export const Register = () => {
+const Register = () => {
   const usernameRef = useRef(); // Ref for username input field
   const errRef = useRef(); // Ref for error message element
   const { REGISTER_API } = endpoints;
@@ -276,3 +277,5 @@ export const Register = () => {
     </div>
   );
 };
+
+export default Register;

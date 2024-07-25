@@ -12,31 +12,26 @@ import { endpoints } from "../../constants/urls";
  * On successful login, it redirects the user to the previous page or home.
  *
  * @component
+ * @memberof pages
  * @example
  * return (
  *   <Login />
  * )
  */
-export const Login = () => {
+const Login = () => {
   const { persist, setAuth, setPersist } = useAuth();
   const { LOGIN_API } = endpoints;
 
   const navigate = useNavigate();
   const location = useLocation();
   const redirection = location.state?.from?.pathname || "/"; // Redirect user to previous page after login
-
+  
   const usernameOrEmailRef = useRef(); // Ref for username/email input field
   const errRef = useRef(); // Ref for error message element
 
   const [usernameOrEmail, setUsernameOrEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errMsg, setErrMsg] = useState("");
-
-  // const varCheck = {
-  //   accessToken: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjE3MjE3MTIwMzUsImV4cCI6MTc1MzI0ODA2NywiYXVkIjoid3d3LmV4YW1wbGUuY29tIiwic3ViIjoianJvY2tldEBleGFtcGxlLmNvbSIsIkdpdmVuTmFtZSI6IkpvaG5ueSIsIlN1cm5hbWUiOiJSb2NrZXQiLCJSb2xlIjoiYWRtaW4ifQ.vViz-DxP7t2YzRY_SPmrA1EWKhmJiLmDkGBRaD121rU",
-  //   username: "Vagish",
-  //   email: "abc@gmail.com",
-  // }
 
   // Focus username/email input on initial render
   useEffect(() => {
@@ -71,15 +66,14 @@ export const Login = () => {
         }
       );
 
-    // Handle invalid response from server
+  //  Handle invalid response from server
     if (!response.data) {
       throw new Error("Invalid response from server");
     }
 
 
     // Destructure response data
-    const { accessToken, username, email } = response.data;
-    // const { accessToken, username, email } = varCheck;
+     const { accessToken, username, email } = response.data;
       
 
     // Update authentication context with user information
@@ -90,7 +84,7 @@ export const Login = () => {
     setPassword("");
 
     // Redirect user to previous page or home ("/") after successful login
-     navigate(redirection, { replace: true });
+      navigate(redirection, { replace: true });
     } catch (err) {
       // Handle errors
       if (!err?.response) {
@@ -199,3 +193,5 @@ export const Login = () => {
     </div>
   );
 };
+
+export default Login;
