@@ -1,51 +1,40 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
-// pages
-import Home from "./pages/Home/index";
-import ProtectedPage from "./pages/Protected/index.jsx";
-import Login from "./pages/LoginSystem/login";
-import Register from "./pages/LoginSystem/register";
+import Welcome from "./pages/Welcome/index";
+import Login from "./pages/LoginSystem/index.jsx";
 import Error from "./pages/Error/index";
-
-// components
-import Navbar from "./components/Navbar";
-import { RequireNotAuth, RequireAuth } from "./components/RequireAuth";
-
-// contexts
+import Birthday from "./pages/Birthday/index.jsx";
+import Sidebar from "./components/Sidebar/index.jsx";
 import { AuthProvider } from "./contexts/AuthProvider.jsx";
+import { RequireNotAuth, RequireAuth } from "./components/RequireAuth";
+import { useState } from "react";
+import NewEmployee from "./pages/Hr/newEmployee";
+import UploadIncomeTaxForm from "./pages/Hr/UploadIncomeTaxForm";
 
-/**
- * Main application component.
- *
- * This component sets up the application's routing using React Router and provides the authentication context
- * to the entire application. It defines routes for public pages, protected pages, and authentication pages.
- *
- * @component
- * @example
- * // Example usage:
- * <App />
- *
- * @returns {JSX.Element} The main application component with routing and context providers.
- */
 function App() {
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+
+  const handleToggleCollapse = (collapsed) => {
+    setIsSidebarCollapsed(collapsed);
+  };
+
   return (
     <AuthProvider>
       <Router>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-
-          <Route element={<RequireNotAuth />}>
-            <Route path="login" element={<Login />} />
-            <Route path="register" element={<Register />} />
-          </Route>
-
-          <Route element={<RequireAuth allowedRoles={["user", "admin"]} />}>
-            <Route path="/protected" element={<ProtectedPage />} />
-          </Route>
-
-          <Route path="*" element={<Error code="404" />} />
-        </Routes>
+        <div className="flex">
+          <Sidebar onToggleCollapse={handleToggleCollapse} /> {/* Sidebar component */}
+          <main className={`flex-1 transition-margin duration-300 ${isSidebarCollapsed ? 'ml-16' : 'ml-64'}`}>
+            <Routes>
+              <Route path="/view/welcome" element={<Welcome />} />
+              <Route element={<RequireNotAuth />}>
+                <Route path="login" element={<Login />} />
+              </Route>
+              <Route path="/view/birthdays" element={<Birthday />} />
+              <Route path="/view/newemp" element={<NewEmployee />} />
+              <Route path="/view/uploadIncomeTaxExcel" element={<UploadIncomeTaxForm/>}/>
+              <Route path="*" element={<Error code="404" />} />
+            </Routes>
+          </main>
+        </div>
       </Router>
     </AuthProvider>
   );
