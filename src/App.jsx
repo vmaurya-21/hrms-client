@@ -9,6 +9,12 @@ import { RequireNotAuth, RequireAuth } from "./components/RequireAuth";
 import { useState } from "react";
 import NewEmployee from "./pages/Hr/newEmployee";
 import UploadIncomeTaxForm from "./pages/Hr/UploadIncomeTaxForm";
+import LeaveDetails from "./pages/LeaveDetails";
+import ExpenseDetails from "./pages/Reimbursement";
+import AnnouncementPage from "./pages/Announcement";
+import LeaveTrackerPage from "./pages/LeaveTracker";
+import PayslipPage from "./pages/Payslip";
+import DeclarationPage from "./pages/ItDeclaration";
 
 function App() {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
@@ -21,7 +27,7 @@ function App() {
     <AuthProvider>
       <Router>
         <div className="flex">
-          <Sidebar onToggleCollapse={handleToggleCollapse} /> {/* Sidebar component */}
+          <Sidebar onToggleCollapse={handleToggleCollapse} />
           <main className={`flex-1 transition-margin duration-300 ${isSidebarCollapsed ? 'ml-16' : 'ml-64'}`}>
             <Routes>
               <Route path="/view/welcome" element={<Welcome />} />
@@ -30,7 +36,14 @@ function App() {
               </Route>
               <Route path="/view/birthdays" element={<Birthday />} />
               <Route path="/view/newemp" element={<NewEmployee />} />
-              <Route path="/view/uploadIncomeTaxExcel" element={<UploadIncomeTaxForm/>}/>
+              <Route path="/view/uploadIncomeTaxExcel" element={<UploadIncomeTaxForm />} />
+
+              <Route path="/view/leaveDetails" element={<LeaveDetails />} />
+              <Route path="/view/expenses" element={<ExpenseDetails />} />
+              <Route path="/view/announcements" element={<AnnouncementPage />} />
+              <Route path="/view/LeaveTrackerPage1" element={<LeaveTrackerPage />} />
+              <Route path="/view/pay_slips" element={<PayslipPage />} />
+              <Route path="/view/itDeclarationForm" element={<DeclarationPage />} />
               <Route path="*" element={<Error code="404" />} />
             </Routes>
           </main>

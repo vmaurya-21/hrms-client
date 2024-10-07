@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faBirthdayCake, faHome, faTasks, faChevronDown, faBars, faSun, faMoon, faCog, faBullhorn,
-  faBell, faRupee, faUser, faCalendar, faFileText, faFilePdf, faSearch, faUpload,
+  faBell, faRupee, faUser, faCalendar, faFileText, faFilePdf, faUpload,
   faBalanceScale, faCalculator , faChevronRight, faChevronLeft, faSignOutAlt
 } from '@fortawesome/free-solid-svg-icons';
 
@@ -32,7 +32,7 @@ const Sidebar = ({ onToggleCollapse }) => {
 };
 
   return (
-    <div className={`h-screen bg-white text-zinc-800 border-r-4 border-orange-500 fixed top-0 left-0 z-50 ${isDarkMode ? 'dark:bg-zinc-900 dark:text-zinc-200' : ''} ${isCollapsed ? 'w-16' : 'w-64'} transition-width duration-300`}>
+    <div className={`h-screen bg-white text-zinc-900 font-semibold border-r-4 border-orange-500 fixed top-0 left-0 z-50 ${isDarkMode ? 'dark:bg-zinc-900 dark:text-zinc-200' : ''} ${isCollapsed ? 'w-16' : 'w-64'} transition-width duration-300`}>
       <div className="p-4 flex flex-col h-full">
         {/* Toggle Button */}
         <button onClick={toggleSidebar} className="self-end  text-zinc-900 dark:text-zinc-100 hover:bg-zinc-200 dark:hover:bg-zinc-700 p-2 rounded">
@@ -47,16 +47,16 @@ const Sidebar = ({ onToggleCollapse }) => {
         </div>
 
         {/* Greeting Message */}
-        <div className={`bg-zinc-100 dark:bg-zinc-800 p-4 ${isCollapsed ? 'hidden' : ''}`}>
+        <div className={`bg-zinc-100 dark:bg-zinc-800 p-3 ${isCollapsed ? 'hidden' : ''}`}>
           <div className="text-zinc-900 dark:text-zinc-100 text-lg font-semibold mb-2">
-            {`Hello, ${user.userProfile.fullName}!`}
+            {`Hello, ${user.fullName}!`}
           </div>
         </div>
 
         {/* Toggle Theme Button */}
         <button
           onClick={toggleTheme}
-          className={`flex items-center mb-4 p-2 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-200 dark:hover:bg-zinc-700 rounded transition-colors duration-200 ${isCollapsed ? 'justify-center' : ''}`}
+          className={`flex items-center  p-2 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-200 dark:hover:bg-zinc-700 rounded transition-colors duration-200 ${isCollapsed ? 'justify-center' : ''}`}
         >
           <FontAwesomeIcon icon={isDarkMode ? faSun : faMoon} />
           {!isCollapsed && <span className="ml-2">{isDarkMode ? 'Light Mode' : 'Dark Mode'}</span>}
@@ -136,26 +136,27 @@ const Sidebar = ({ onToggleCollapse }) => {
             </li>
           )}
 
-          {user.roleName === 'Finance' && (
+
             <li className="relative group">
-              <button className={`flex items-center p-2 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-200 dark:hover:bg-zinc-700 rounded ${isCollapsed ? 'justify-center' : ''}`}>
+            <button className={`flex items-center p-2 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-200 dark:hover:bg-zinc-700 rounded ${isCollapsed ? 'justify-center' : ''}`}
+              onClick={() => toggleDropdown('payrollDropdown')}>
                 <FontAwesomeIcon icon={faTasks} />
                 {!isCollapsed && <span className="ml-2">Payroll</span>}
                 {!isCollapsed && <FontAwesomeIcon icon={faChevronDown} className="ml-2" />}
               </button>
-              <ul className={`absolute left-full top-full mt-1 bg-zinc-700 text-white w-48 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${isCollapsed ? 'hidden' : ''}`}>
+              <ul className={`absolute left-28 bottom-0 mt-1 bg-zinc-700 text-white w-48 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 ${openDropdown === 'payrollDropdown' ? 'block' : 'hidden'} transition-opacity duration-300 ${isCollapsed ? 'hidden' : ''}`}>
                 <li>
                   <Link to="/view/itDeclarationForm" className="flex items-center p-2 hover:bg-zinc-600 transition-colors duration-200">
                     <FontAwesomeIcon icon={faCalculator} />
                     <span className="ml-2">Income Tax</span>
                   </Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link to="/view/tax_declaration_main" className="flex items-center p-2 hover:bg-zinc-600 transition-colors duration-200">
                     <FontAwesomeIcon icon={faFileText} />
                     <span className="ml-2">Tax Declaration</span>
                   </Link>
-                </li>
+                </li> */}
                 <li>
                   <Link to="/view/pay_slips" className="flex items-center p-2 hover:bg-zinc-600 transition-colors duration-200">
                     <FontAwesomeIcon icon={faFilePdf} />
@@ -164,7 +165,7 @@ const Sidebar = ({ onToggleCollapse }) => {
                 </li>
               </ul>
             </li>
-          )}
+
 
           {/* Leaves Dropdown */}
           <li className="relative group">
@@ -177,7 +178,7 @@ const Sidebar = ({ onToggleCollapse }) => {
             </button>
             <ul className={`absolute left-28 bottom-0 mt-2 bg-zinc-700 text-white w-48 rounded-lg shadow-lg ${openDropdown === 'leavesDropdown' ? 'block' : 'hidden'} transition-opacity duration-300 ${isCollapsed ? 'hidden' : ''}`}>
               <li>
-                <Link to="/view/leaves" className="flex items-center p-2 hover:bg-zinc-600 transition-colors duration-200">
+                <Link to="/view/leaveDetails" className="flex items-center p-2 hover:bg-zinc-600 transition-colors duration-200">
                   <FontAwesomeIcon icon={faTasks} />
                   <span className="ml-2">Leave Details</span>
                 </Link>
@@ -189,10 +190,10 @@ const Sidebar = ({ onToggleCollapse }) => {
                 </Link>
               </li>
               <li>
-                <Link to="/hr/leaveTransactions" className="flex items-center p-2 hover:bg-zinc-600 transition-colors duration-200">
+                {/* <Link to="/hr/leaveTransactions" className="flex items-center p-2 hover:bg-zinc-600 transition-colors duration-200">
                   <FontAwesomeIcon icon={faSearch} />
                   <span className="ml-2">Leave Transactions</span>
-                </Link>
+                </Link> */}
               </li>
             </ul>
           </li>
@@ -238,13 +239,13 @@ const Sidebar = ({ onToggleCollapse }) => {
               <FontAwesomeIcon icon={faBell} />
               {!isCollapsed && <span className="ml-2">Alerts</span>}
               {!isCollapsed && (
-                <span className="ml-2 bg-orange-600 text-white rounded-full px-2 py-1 text-xs">
+                <span className="ml-2 bg-zinc-800 text-white dark:bg-white dark:text-black rounded-full px-2 py-1 text-xs">
                   5
                 </span>
               )}
               {!isCollapsed && <FontAwesomeIcon icon={faChevronDown} className="ml-2" />}
             </button>
-            <ul className={`absolute left-28 top-0 mt-2 bg-zinc-700 text-white w-48 rounded-lg shadow-lg ${openDropdown === 'reimbursmentDropdown' ? 'block' : 'hidden'} transition-opacity duration-300 ${isCollapsed ? 'hidden' : ''}`}>
+            <ul className={`absolute left-28 top-0 mt-2 bg-zinc-700 text-white w-48 rounded-lg shadow-lg ${openDropdown === '' ? 'block' : 'hidden'} transition-opacity duration-300 ${isCollapsed ? 'hidden' : ''}`}>
               <li>
                 <a href="#" className="flex items-center p-2 hover:bg-zinc-600">
                   <FontAwesomeIcon icon={faRupee} />
@@ -268,7 +269,7 @@ const Sidebar = ({ onToggleCollapse }) => {
         </ul>
 
         <div className="ml-2 mt-8">
-          <button className={`flex items-center p-2 px-8 text-lg font-semibold bg-zinc-900 dark:bg-white text-zinc-100 dark:text-zinc-900 hover:bg-zinc-400 dark:hover:bg-zinc-400 rounded ${isCollapsed ? 'justify-center px-1' : ''}`}>
+          <button className={`flex items-center p-2 px-8 text-lg font-semibold bg-zinc-900 dark:bg-white text-zinc-100 dark:text-zinc-900 hover:bg-zinc-400 dark:hover:bg-zinc-400 rounded ${isCollapsed ? 'justify-center px-0' : ''}`}>
             <FontAwesomeIcon icon={faSignOutAlt} />
             {!isCollapsed && <span className="ml-2">Logout</span>}
           </button>

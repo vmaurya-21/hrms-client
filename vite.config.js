@@ -6,6 +6,18 @@ import "regenerator-runtime/runtime.js";
 export default defineConfig({
   plugins: [react(),
   ],
+   server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5858',
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
+  preview : {
+   port : 3000,
+   },
   test: {
     globals: true,
     environment: "jsdom",

@@ -2,20 +2,16 @@
 
 export const columns = [
   {
-    accessorKey: "id",
+    accessorKey: "empId",
     header: "Employee Id",
   },
   {
-    accessorKey: "employeeName",
+    accessorKey: "fullName",
     header: "Employee Name",
   },
   {
-    accessorKey: "emailId",
+    accessorKey: "officeEmail",
     header: "Email Id",
-  },
-  {
-    accessorKey: "designation",
-    header: "Designation",
   },
   {
     accessorKey: "dateOfBirth",

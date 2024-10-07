@@ -1,46 +1,7 @@
 import { useEffect, useState } from 'react';
 import { columns } from "./column";
 import { DataTable } from "./data-table";
-
-async function getData() {
-  return [
-    {
-      id: "001",
-      employeeName: "John Doe",
-      emailId: "john.doe@example.com",
-      designation: "Software Engineer",
-      dateOfBirth: "1990-01-15",
-    },
-    {
-      id: "002",
-      employeeName: "Jane Smith",
-      emailId: "jane.smith@example.com",
-      designation: "Project Manager",
-      dateOfBirth: "1985-03-22",
-    },
-    {
-      id: "003",
-      employeeName: "Alice Johnson",
-      emailId: "alice.johnson@example.com",
-      designation: "UX Designer",
-      dateOfBirth: "1992-07-10",
-    },
-    {
-      id: "004",
-      employeeName: "Bob Brown",
-      emailId: "bob.brown@example.com",
-      designation: "Data Analyst",
-      dateOfBirth: "1988-11-05",
-    },
-    {
-      id: "005",
-      employeeName: "Charlie Davis",
-      emailId: "charlie.davis@example.com",
-      designation: "Product Owner",
-      dateOfBirth: "1993-09-25",
-    },
-  ];
-}
+import { getBirthday } from '../../services/apiServices';
 
 export default function DemoPage() {
   const [data, setData] = useState([]);
@@ -49,7 +10,7 @@ export default function DemoPage() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const result = await getData();
+        const result = await getBirthday();
         setData(result);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -62,25 +23,52 @@ export default function DemoPage() {
   }, []);
 
   if (loading) {
+    // Shimmer UI when loading
     return (
-      <div className="container mx-auto py-10 bg-white text-black dark:bg-gray-900 dark:text-white">
-        Loading...
+      <div className="container mx-auto min-h-screen py-10 bg-white text-black dark:bg-zinc-900 dark:text-white">
+        <div className="animate-pulse">
+          {/* Header skeleton */}
+          <div className="h-6 bg-gray-200 dark:bg-zinc-700 rounded mb-4 w-1/3 mx-auto"></div>
+
+          {/* Table skeleton */}
+          <div className="rounded-md border">
+            <table className="min-w-full">
+              <thead>
+                <tr>
+                  {Array.from({ length: 4 }).map((_, index) => (
+                    <th key={index} className="p-2">
+                      <div className="h-6 bg-gray-200 dark:bg-zinc-700 rounded w-full"></div>
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {Array.from({ length: 12 }).map((_, rowIndex) => (
+                  <tr key={rowIndex}>
+                    {Array.from({ length: 4 }).map((_, colIndex) => (
+                      <td key={colIndex} className="p-2">
+                        <div className="h-6 bg-gray-200 dark:bg-zinc-700 rounded w-full"></div>
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     );
   }
 
   return (
-    
-     <div className="flex flex-col h-screen bg-white text-black dark:bg-zinc-900 dark:text-white">
-  <div className="container mx-auto py-10 flex-1">
-    <div className="text-center mb-8">
-      <h2 className="text-xl font-bold dark:text-white">Birthday in Current Month</h2>
-      <hr className="my-4 border-gray-300 dark:border-zinc-600" />
+    <div className="flex flex-col min-h-screen bg-white text-black dark:bg-zinc-900 dark:text-white">
+      <div className="container mx-auto py-10 flex-1">
+        <div className="text-center mb-8">
+          <h2 className="text-xl font-bold dark:text-white">Birthday in Current Month</h2>
+          <hr className="my-4 border-gray-300 dark:border-zinc-600" />
+        </div>
+        <DataTable columns={columns} data={data} />
+      </div>
     </div>
-    <DataTable columns={columns} data={data} />
-  </div>
-</div>
-
-    
   );
 }
